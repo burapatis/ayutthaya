@@ -29,9 +29,9 @@ async function loadContent() {
 }
 
 function cardMarkup(item, featured = false) {
-  return `<article class="${featured ? 'feature-card' : 'catalog-card'}" data-open-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-label="เปิด ${escapeHtml(item.title)}">
+  return `<article class="${featured ? 'feature-card' : 'catalog-card'}" data-card-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-label="เปิดรายละเอียด ${escapeHtml(item.title)}">
     <div class="card-art ${escapeHtml(item.accent || 'art-river')}"><span class="card-art-label">${escapeHtml(item.type)}</span></div>
-    <div class="card-body"><p class="eyebrow">${escapeHtml(item.category)}</p><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.summary)}</p><div class="card-meta"><span>${escapeHtml(item.location)}</span><span>${escapeHtml(item.isDraft ? 'ร่างในเครื่อง' : item.status)}</span></div></div>
+    <div class="card-body"><p class="eyebrow">${escapeHtml(item.category)}</p><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.summary)}</p><div class="card-meta"><span>${escapeHtml(item.location)}</span><span>${escapeHtml(item.isDraft ? 'ร่างในเครื่อง' : item.status)}</span></div><span class="card-action" aria-hidden="true">เปิดรายละเอียด <span>↗</span></span></div>
   </article>`;
 }
 
@@ -60,10 +60,26 @@ function renderCatalog() {
 }
 
 function bindCardEvents() {
-  document.querySelectorAll('[data-open-id]').forEach((element) => {
-    const open = () => openDetail(element.dataset.openId);
-    element.addEventListener('click', open);
-    element.addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); } });
+  ['#featured-list', '#catalog'].forEach((selector) => {
+    const container = $(selector);
+    if (!container || container.dataset.cardEventsBound === 'true') return;
+    container.addEventListener('click', (event) => {
+      const card = event.target.closest('[data-card-id]');
+      if (card && container.contains(card)) openDetail(card.dataset.cardId);
+    });
+    container.addEventListener('keydown', (event) => {
+      const card = event.target.closest('[data-card-id]');
+      if (card && container.contains(card) && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        openDetail(card.dataset.cardId);
+      }
+    });
+    container.dataset.cardEventsBound = 'true';
+  });
+  document.querySelectorAll('button[data-open-id]').forEach((element) => {
+    if (element.dataset.detailBound === 'true') return;
+    element.addEventListener('click', () => openDetail(element.dataset.openId));
+    element.dataset.detailBound = 'true';
   });
 }
 
