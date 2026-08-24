@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="อยุธยาของเรา — สำรวจอยุธยาในมุมที่คุณอาจยังไม่เคยเห็น" />
+    <meta name="theme-color" content="#183f44" />
+    <title>อยุธยาของเรา | Our Ayutthaya</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="อยุธยาของเรา หน้าแรก">
+        <span class="brand-mark" aria-hidden="true">◒</span>
+        <span>
+          <strong>อยุธยาของเรา</strong>
+          <small>OUR AYUTTHAYA</small>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="เมนูหลัก">
+        <a href="#discover">ค้นพบ</a>
+        <a href="#stories">เรื่องเล่า</a>
+        <a href="#places">สถานที่</a>
+        <a href="#about">เกี่ยวกับโครงการ</a>
+      </nav>
+      <button class="button button-small button-quiet" id="open-draft" type="button">เพิ่มร่างข้อมูล</button>
+    </header>
+
+    <main id="top">
+      <section class="hero shell" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">เมืองเก่าที่ไม่เคยหยุดเคลื่อนไหว</p>
+          <h1 id="hero-title">อยุธยาไม่ได้อยู่แค่ในอดีต</h1>
+          <p class="hero-lede">สำรวจสถานที่ เรื่องราว อาหาร กิจกรรม และการเปลี่ยนแปลงของเมืองที่ยังมีชีวิต — โดยมีประวัติศาสตร์เป็นบริบท</p>
+          <form class="search-bar" id="search-form" role="search">
+            <label class="sr-only" for="search-input">ค้นหาอยุธยา</label>
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input id="search-input" type="search" placeholder="ลองค้นหา “ริมน้ำ” “อาหาร” หรือ “เมืองเก่า”" autocomplete="off" />
+            <button class="button button-primary" type="submit">ค้นหา</button>
+          </form>
+          <div class="search-hints" aria-label="คำค้นแนะนำ">
+            <button type="button" data-query="ริมน้ำ">ริมน้ำ</button>
+            <button type="button" data-query="อาหาร">อาหาร</button>
+            <button type="button" data-query="เมืองเก่า">เมืองเก่า</button>
+            <button type="button" data-query="กิจกรรม">กิจกรรม</button>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="ภาพประกอบเชิงนามธรรมของแม่น้ำและเมืองเก่า">
+          <div class="sun-disc"></div>
+          <div class="river-line river-one"></div>
+          <div class="river-line river-two"></div>
+          <div class="temple-silhouette"><i></i><i></i><i></i></div>
+          <span class="art-note">อดีต<br /><em>↘</em> วันนี้</span>
+        </div>
+      </section>
+
+      <section class="signal-bar shell" aria-label="ภาพรวมเนื้อหา">
+        <div><strong id="content-count">00</strong><span>เรื่องราวที่คัดสรร</span></div>
+        <div><strong>05</strong><span>มุมมองของเมือง</span></div>
+        <div><strong>01</strong><span>คลังข้อมูลที่เติบโตได้</span></div>
+      </section>
+
+      <section class="section shell" id="discover" aria-labelledby="discover-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">เริ่มจากสิ่งที่กำลังเกิดขึ้น</p>
+            <h2 id="discover-title">ค้นพบอยุธยาในมุมใหม่</h2>
+          </div>
+          <p class="section-intro">ชุดข้อมูลที่คัดจากแหล่งทางการ เน้นสถานที่ วัตถุ อาหาร ข้อมูลเมือง และกิจกรรมสาธารณะ โดยไม่เผยแพร่โปรไฟล์บุคคล</p>
+        </div>
+        <div class="feature-grid" id="featured-list"></div>
+      </section>
+
+      <section class="section section-tinted" id="stories" aria-labelledby="stories-title">
+        <div class="shell">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">เรื่องเล่าที่มีบริบท</p>
+              <h2 id="stories-title">อดีตอยู่ตรงนี้</h2>
+            </div>
+            <a class="text-link" href="#catalog">ดูคลังทั้งหมด <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="story-band">
+            <div class="story-number">01</div>
+            <div>
+              <p class="tag tag-light">เมืองและสายน้ำ</p>
+              <h3>เมืองเกาะที่ออกแบบด้วยน้ำ</h3>
+              <p>ภูมิศาสตร์ของเกาะเมือง แม่น้ำ และระบบทางน้ำช่วยให้เราอ่านอยุธยาเป็นเมืองที่มีชีวิต ไม่ใช่เพียงกลุ่มโบราณสถาน</p>
+              <button class="button button-light" type="button" data-open-id="ayutthaya-rivers">อ่านเรื่องเล่า</button>
+            </div>
+            <div class="story-visual" aria-hidden="true"><span>RIVER<br />CITY</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section shell" id="places" aria-labelledby="places-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">คลังข้อมูลอยุธยา</p>
+            <h2 id="places-title">ค้นจากสิ่งที่สนใจ</h2>
+          </div>
+          <div class="filter-row" id="filter-row" aria-label="ตัวกรองเนื้อหา"></div>
+        </div>
+        <div class="catalog-toolbar">
+          <span id="result-count" aria-live="polite"></span>
+          <button class="sort-button" id="sort-button" type="button">เรียง: แนะนำก่อน <span aria-hidden="true">↕</span></button>
+        </div>
+        <div class="catalog-grid" id="catalog"></div>
+        <div class="empty-state" id="empty-state" hidden>
+          <span aria-hidden="true">⌁</span>
+          <h3>ยังไม่พบเรื่องที่ตรงกัน</h3>
+          <p>ลองใช้คำค้นที่กว้างขึ้น หรือเลือกหมวดหมู่อื่น</p>
+        </div>
+      </section>
+
+      <section class="section about-section" id="about" aria-labelledby="about-title">
+        <div class="shell about-grid">
+          <div>
+            <p class="eyebrow">โครงการวิจัยและสื่อดิจิทัลอิสระ</p>
+            <h2 id="about-title">ทำให้ข้อมูลอยุธยา<br /><em>เข้าถึงง่ายและเติบโตได้</em></h2>
+          </div>
+          <div>
+            <p>อยุธยาของเราออกแบบให้เป็นคลังข้อมูลที่ผู้จัดทำสามารถค่อย ๆ เพิ่มเรื่องราวได้เอง ข้อมูลทุกชิ้นมีสถานะ แหล่งอ้างอิง และวันที่ทบทวน</p>
+            <p class="privacy-note"><strong>แนวทางความเป็นส่วนตัว</strong><br />ระยะนี้เน้นข้อมูลสถานที่ วัตถุ พื้นที่ และกิจกรรมสาธารณะ หลีกเลี่ยงการเผยแพร่ข้อมูลที่ระบุตัวบุคคลหรือกลุ่มบุคคล</p>
+            <button class="button button-outline" id="open-ai" type="button">ทดลองผู้ช่วยร่าง AI</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-grid">
+        <div><strong>อยุธยาของเรา</strong><span>Our Ayutthaya</span></div>
+        <div><span>โครงการโดย Boorapatis Ploysuwan</span><a href="mailto:burapatis@gmail.com">burapatis@gmail.com</a></div>
+        <div><span>ระยะที่ 1 · ข้อมูลอ้างอิง</span><span>เวลาและกิจกรรมควรตรวจสอบก่อนเดินทาง</span></div>
+      </div>
+    </footer>
+
+    <div class="modal-backdrop" id="modal-backdrop" hidden>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="modal-close" id="modal-close" type="button" aria-label="ปิดหน้าต่าง">×</button>
+        <div id="modal-content"></div>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

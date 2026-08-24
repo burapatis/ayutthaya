@@ -1,0 +1,18 @@
+import { cp, mkdir } from "node:fs/promises";
+import { resolve } from "node:path";
+
+const root = resolve(".");
+const output = resolve(root, "dist/client");
+
+await mkdir(resolve(output, "data"), { recursive: true });
+
+for (const file of ["index.html", "styles.css", "app.js"]) {
+  await cp(resolve(root, file), resolve(output, file));
+}
+
+await cp(
+  resolve(root, "data/content.json"),
+  resolve(output, "data/content.json"),
+);
+
+console.log("Prepared Cloudflare static assets in dist/client");
