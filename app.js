@@ -11,6 +11,7 @@ let sortNewestFirst = false;
 
 const $ = (selector) => document.querySelector(selector);
 const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' }[char]));
+const normalizeSearch = (value = '') => String(value).normalize('NFC').toLocaleLowerCase('th-TH').replace(/\s+/g, ' ').trim();
 
 async function loadContent() {
   try {
@@ -48,15 +49,23 @@ function renderFilters() {
 
 function renderCatalog() {
   let visible = records.filter((item) => activeFilter === 'ทั้งหมด' || item.type === activeFilter);
-  if (currentQuery) {
-    const query = currentQuery.toLowerCase();
-    visible = visible.filter((item) => [item.title, item.type, item.category, item.summary, item.detail, item.location, item.sourceLabel].join(' ').toLowerCase().includes(query));
+  const query = normalizeSearch(currentQuery);
+  if (query) {
+    visible = visible.filter((item) => normalizeSearch([item.id, item.title, item.type, item.category, item.summary, item.detail, item.location, item.sourceLabel, item.sourceNote].join(' ')).includes(query));
   }
   if (sortNewestFirst) visible = [...visible].reverse();
-  $('#result-count').textContent = `พบ ${visible.length} รายการ`;
+  $('#result-count').textContent = query ? `พบ ${visible.length} รายการจาก “${currentQuery.trim()}”` : `พบ ${visible.length} รายการ`;
   $('#catalog').innerHTML = visible.map((item) => cardMarkup(item)).join('');
   $('#empty-state').hidden = visible.length > 0;
   bindCardEvents();
+}
+
+function applySearch(value, scrollToResults = false) {
+  currentQuery = String(value || '').trim();
+  const input = $('#search-input');
+  if (input && input.value !== currentQuery) input.value = currentQuery;
+  renderCatalog();
+  if (scrollToResults) document.querySelector('#places').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function bindCardEvents() {
@@ -127,8 +136,10 @@ function openAiModal() {
 function openModal() { $('#modal-backdrop').hidden = false; document.body.style.overflow = 'hidden'; $('#modal-close').focus(); }
 function closeModal() { $('#modal-backdrop').hidden = true; document.body.style.overflow = ''; }
 
-$('#search-form').addEventListener('submit', (event) => { event.preventDefault(); currentQuery = $('#search-input').value.trim(); renderCatalog(); document.querySelector('#places').scrollIntoView({ behavior: 'smooth' }); });
-document.querySelectorAll('[data-query]').forEach((button) => button.addEventListener('click', () => { $('#search-input').value = button.dataset.query; currentQuery = button.dataset.query; renderCatalog(); document.querySelector('#places').scrollIntoView({ behavior: 'smooth' }); }));
+$('#search-form').addEventListener('submit', (event) => { event.preventDefault(); applySearch($('#search-input').value, true); });
+$('#search-input').addEventListener('input', (event) => applySearch(event.currentTarget.value));
+$('#search-input').addEventListener('search', (event) => applySearch(event.currentTarget.value));
+document.querySelectorAll('[data-query]').forEach((button) => button.addEventListener('click', () => applySearch(button.dataset.query, true)));
 $('#sort-button').addEventListener('click', () => { sortNewestFirst = !sortNewestFirst; $('#sort-button').innerHTML = sortNewestFirst ? 'เรียง: ล่าสุด <span aria-hidden="true">↕</span>' : 'เรียง: แนะนำก่อน <span aria-hidden="true">↕</span>'; renderCatalog(); });
 $('#open-draft').addEventListener('click', openDraftModal);
 $('#open-ai').addEventListener('click', openAiModal);
