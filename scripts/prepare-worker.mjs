@@ -6,7 +6,7 @@ const output = resolve(root, "dist/client");
 
 await mkdir(resolve(output, "data"), { recursive: true });
 
-for (const file of ["index.html", "styles.css", "app.js"]) {
+for (const file of ["index.html", "creator.html", "styles.css", "app.js", "creator.js"]) {
   await cp(resolve(root, file), resolve(output, file));
 }
 
