@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="พื้นที่ทำงานสำหรับผู้จัดทำโครงการอยุธยาของเรา" />
+    <meta name="theme-color" content="#17383b" />
+    <title>พื้นที่ผู้จัดทำ | อยุธยาของเรา</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="creator-page">
+    <header class="creator-header">
+      <div class="shell creator-header-inner">
+        <a class="brand" href="index.html#top" aria-label="กลับหน้าเว็บไซต์อยุธยาของเรา">
+          <span class="brand-mark" aria-hidden="true">◒</span>
+          <span>
+            <strong>อยุธยาของเรา</strong>
+            <small>OUR AYUTTHAYA</small>
+          </span>
+        </a>
+        <div class="creator-header-actions">
+          <span class="creator-badge">พื้นที่ผู้จัดทำ</span>
+          <a class="back-public" href="index.html">กลับเว็บไซต์สาธารณะ <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </header>
+
+    <main class="creator-main shell">
+      <section class="creator-hero" aria-labelledby="creator-title">
+        <div>
+          <p class="eyebrow">CONTENT WORKSPACE · BOORAPATIS PLOYSUWAN</p>
+          <h1 id="creator-title">พื้นที่ทำงาน<br /><em>สำหรับดูแลคลังข้อมูล</em></h1>
+          <p class="creator-lede">เพิ่มร่างข้อมูล ตรวจสอบแหล่งอ้างอิง และใช้ AI ช่วยวางโครงสร้างก่อนเผยแพร่สู่เว็บไซต์สาธารณะ</p>
+        </div>
+        <aside class="creator-notice" aria-label="คำอธิบายพื้นที่ผู้จัดทำ">
+          <strong>พื้นที่นี้แยกจากเว็บไซต์สาธารณะ</strong>
+          <p>ข้อมูลที่บันทึกที่นี่จะยังไม่แสดงต่อผู้เข้าชม และต้นแบบนี้เก็บร่างไว้ในอุปกรณ์ของคุณเท่านั้น</p>
+          <p class="creator-notice-small">ก่อนเผยแพร่จริง ต้องตรวจสอบแหล่งอ้างอิง ลิขสิทธิ์ภาพ และข้อมูลส่วนบุคคลทุกครั้ง</p>
+        </aside>
+      </section>
+
+      <section class="creator-stats" aria-label="สรุปสถานะคลังข้อมูล">
+        <div><strong id="published-count">00</strong><span>รายการที่เผยแพร่</span></div>
+        <div><strong id="draft-count">00</strong><span>ร่างในอุปกรณ์นี้</span></div>
+        <div><strong>01</strong><span>ผู้ดูแลโครงการ</span></div>
+      </section>
+
+      <section class="workspace-grid" aria-labelledby="workspace-title">
+        <div class="workspace-panel workspace-form-panel">
+          <div class="workspace-heading">
+            <div>
+              <p class="eyebrow">1 · CREATE DRAFT</p>
+              <h2 id="workspace-title">สร้างร่างข้อมูล</h2>
+            </div>
+            <span class="status-pill status-draft">Draft</span>
+          </div>
+          <p class="workspace-intro">เริ่มจากข้อมูลที่มีแหล่งที่มา แล้วค่อยเติมรายละเอียดให้ครบก่อนเปลี่ยนสถานะ</p>
+          <form id="draft-form" class="creator-form">
+            <label>ชื่อเรื่อง<input name="title" required placeholder="เช่น เส้นทางริมน้ำรอบเกาะเมือง" /></label>
+            <div class="form-two-columns">
+              <label>ประเภท<select name="type"><option>เรื่องเล่า</option><option>สถานที่</option><option>เส้นทาง</option><option>อาหาร</option><option>กิจกรรม</option><option>ข้อมูลเมือง</option></select></label>
+              <label>สถานะ<select name="status"><option>Draft</option><option>Review</option><option>Needs Update</option></select></label>
+            </div>
+            <label>หมวดหมู่<input name="category" value="ร่างข้อมูล" placeholder="เช่น เมืองและสายน้ำ" /></label>
+            <label>คำอธิบายสั้น<textarea name="summary" rows="3" required placeholder="อธิบายว่าเรื่องนี้สำคัญกับผู้อ่านอย่างไร โดยไม่ใส่ข้อมูลระบุตัวบุคคล"></textarea></label>
+            <label>รายละเอียดหรือประเด็นที่ต้องค้นต่อ<textarea name="detail" rows="5" placeholder="บันทึกข้อมูลตั้งต้น คำถาม และสิ่งที่ต้องตรวจสอบ"></textarea></label>
+            <label>พื้นที่หรือบริบท<input name="location" placeholder="เช่น เกาะเมือง / ริมแม่น้ำเจ้าพระยา" /></label>
+            <div class="form-two-columns">
+              <label>ชื่อแหล่งอ้างอิง<input name="sourceLabel" placeholder="เช่น กรมศิลปากร" /></label>
+              <label>ลิงก์แหล่งอ้างอิง<input name="sourceUrl" type="url" placeholder="https://..." /></label>
+            </div>
+            <label>วันที่ตรวจสอบล่าสุด<input name="updated" placeholder="เช่น 25 สิงหาคม 2569" /></label>
+            <div class="creator-privacy-note"><strong>ตรวจสอบความเป็นส่วนตัว</strong><br />อย่าใส่ชื่อบุคคล เบอร์โทรศัพท์ อีเมลส่วนตัว ใบหน้า หรือข้อมูลที่ทำให้ระบุตัวบุคคลได้</div>
+            <div class="form-actions"><button class="button button-primary" type="submit">บันทึกร่างในอุปกรณ์นี้</button><button class="button button-outline" id="reset-draft" type="button">ล้างฟอร์ม</button></div>
+          </form>
+        </div>
+
+        <div class="workspace-stack">
+          <section class="workspace-panel ai-panel" aria-labelledby="ai-title">
+            <div class="workspace-heading">
+              <div>
+                <p class="eyebrow">2 · AI ASSISTANT</p>
+                <h2 id="ai-title">ให้ AI ช่วยวางโครงร่าง</h2>
+              </div>
+              <span class="status-pill status-demo">DEMO</span>
+            </div>
+            <p class="workspace-intro">ผู้ช่วยจะเสนอเฉพาะโครงร่าง ข้อมูลยังไม่ถูกส่งออกจากอุปกรณ์และไม่เผยแพร่อัตโนมัติ</p>
+            <label class="sr-only" for="ai-prompt">คำสั่งสำหรับผู้ช่วย AI</label>
+            <textarea id="ai-prompt" class="ai-prompt" rows="4">ช่วยวางโครงร่างเรื่องเกี่ยวกับพื้นที่ริมน้ำ โดยเน้นสถานที่ วัตถุ การเดินทาง และแหล่งอ้างอิง ไม่กล่าวถึงบุคคล</textarea>
+            <button class="button button-primary" id="run-ai" type="button">สร้างโครงร่างตัวอย่าง</button>
+            <div id="ai-result" class="ai-result" aria-live="polite">ผลลัพธ์จะปรากฏตรงนี้</div>
+          </section>
+
+          <section class="workspace-panel" aria-labelledby="drafts-title">
+            <div class="workspace-heading">
+              <div>
+                <p class="eyebrow">3 · DRAFT LIBRARY</p>
+                <h2 id="drafts-title">ร่างที่บันทึกไว้</h2>
+              </div>
+              <span id="draft-storage-label" class="storage-label">เก็บในอุปกรณ์</span>
+            </div>
+            <div id="draft-list" class="draft-library" aria-live="polite"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="editorial-panel" aria-labelledby="checklist-title">
+        <div>
+          <p class="eyebrow">BEFORE PUBLISHING</p>
+          <h2 id="checklist-title">เช็กลิสต์ก่อนนำขึ้นเว็บไซต์สาธารณะ</h2>
+        </div>
+        <ul class="editorial-checklist">
+          <li>มีแหล่งอ้างอิงที่ตรวจสอบได้ และไม่สร้างข้อเท็จจริงขึ้นเอง</li>
+          <li>ระบุวันที่ตรวจสอบล่าสุด โดยเฉพาะกิจกรรมและข้อมูลที่เปลี่ยนแปลงได้</li>
+          <li>ตรวจสอบสิทธิ์การใช้ภาพ พร้อมคำบรรยายและ Alt Text</li>
+          <li>ไม่มีข้อมูลส่วนบุคคลหรือข้อมูลที่ทำให้ระบุตัวบุคคลได้</li>
+          <li>AI เป็นเพียงผู้ช่วยร่าง และผู้จัดทำเป็นผู้ตรวจสอบอนุมัติ</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-grid">
+        <div><strong>พื้นที่ผู้จัดทำ</strong><span>Content workspace ของอยุธยาของเรา</span></div>
+        <div><span>Boorapatis Ploysuwan</span><a href="mailto:burapatis@gmail.com">burapatis@gmail.com</a></div>
+        <div><a href="index.html">กลับเว็บไซต์สาธารณะ ↗</a><span>โครงการวิจัยและสื่อดิจิทัลอิสระ</span></div>
+      </div>
+    </footer>
+
+    <script src="creator.js?v=workspace-20260825"></script>
+  </body>
+</html>
