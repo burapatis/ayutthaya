@@ -21,8 +21,6 @@ async function loadContent() {
   } catch (error) {
     records = fallbackContent;
   }
-  const drafts = JSON.parse(localStorage.getItem('ayutthaya-drafts') || '[]');
-  records = [...drafts.map((item) => ({ ...item, isDraft: true })), ...records];
   $('#content-count').textContent = String(records.length).padStart(2, '0');
   renderFeatured();
   renderFilters();
@@ -100,39 +98,6 @@ function openDetail(id) {
   openModal();
 }
 
-function openDraftModal() {
-  $('#modal-content').innerHTML = `<p class="modal-kicker">CONTENT WORKSPACE</p><h2 id="modal-title">เพิ่มร่างข้อมูล</h2><p>สร้างร่างข้อมูลไว้ในเครื่องก่อนเผยแพร่จริง ระบบนี้ยังไม่ส่งข้อมูลไปยังบริการภายนอก</p><form id="draft-form"><label>ชื่อเรื่อง<input name="title" required placeholder="เช่น เส้นทางริมแม่น้ำสำหรับวันอากาศดี" /></label><label>ประเภท<select name="type"><option>เรื่องเล่า</option><option>สถานที่</option><option>เส้นทาง</option><option>อาหาร</option><option>กิจกรรม</option></select></label><label>คำอธิบายสั้น<textarea name="summary" rows="3" required placeholder="อธิบายเนื้อหาโดยไม่ใส่ข้อมูลบุคคล"></textarea></label><label>พื้นที่หรือบริบท<input name="location" placeholder="เช่น เกาะเมือง / พื้นที่ริมน้ำ" /></label><div class="draft-note">อย่าใส่ชื่อบุคคล เบอร์โทรศัพท์ อีเมลส่วนตัว ใบหน้า หรือข้อมูลที่ทำให้ระบุตัวบุคคลได้</div><button class="button button-primary" type="submit">บันทึกร่างในเครื่อง</button><button class="button button-outline" id="draft-ai" type="button">ให้ AI ช่วยวางโครงร่าง</button></form><ul class="draft-list" id="draft-list"></ul>`;
-  openModal();
-  $('#draft-form').addEventListener('submit', saveDraft);
-  $('#draft-ai').addEventListener('click', suggestDraftStructure);
-}
-
-function saveDraft(event) {
-  event.preventDefault();
-  const form = new FormData(event.currentTarget);
-  const title = String(form.get('title') || '').trim();
-  const draft = { id: `draft-${Date.now()}`, title, type: form.get('type'), category: 'ร่างข้อมูล', summary: String(form.get('summary') || '').trim(), detail: 'ร่างข้อมูลที่สร้างโดยผู้จัดทำและบันทึกไว้ในเครื่อง', location: String(form.get('location') || 'ยังไม่ระบุ').trim(), status: 'ร่างในเครื่อง', accent: 'art-urban', featured: false, updated: new Date().toLocaleDateString('th-TH') };
-  const drafts = JSON.parse(localStorage.getItem('ayutthaya-drafts') || '[]');
-  localStorage.setItem('ayutthaya-drafts', JSON.stringify([draft, ...drafts]));
-  records = [draft, ...records];
-  $('#content-count').textContent = String(records.length).padStart(2, '0');
-  renderFilters(); renderCatalog();
-  closeModal();
-  document.querySelector('#places').scrollIntoView({ behavior: 'smooth' });
-}
-
-function suggestDraftStructure() {
-  const form = $('#draft-form');
-  const title = form.elements.title.value || 'เรื่องเล่าอยุธยา';
-  form.elements.summary.value = `โครงร่างสำหรับ “${title}”\n\n1. สิ่งที่ผู้ใช้ควรรู้\n2. บริบทของพื้นที่\n3. ข้อมูลใช้งานจริง\n4. แหล่งอ้างอิงที่ต้องตรวจสอบ`;
-}
-
-function openAiModal() {
-  $('#modal-content').innerHTML = `<p class="modal-kicker">AI CONTENT ASSISTANT · DEMO</p><h2 id="modal-title">ผู้ช่วยร่างอย่างปลอดภัย</h2><p>ต้นแบบนี้ยังไม่เรียกใช้ API ภายนอก จึงไม่มีข้อมูลถูกส่งออกจากเครื่องของคุณ</p><label>คำสั่งทดลอง<textarea id="ai-prompt" rows="4">ช่วยวางโครงร่างบทความเกี่ยวกับพื้นที่ริมน้ำ โดยเน้นสถานที่ วัตถุ และการเดินทาง ไม่กล่าวถึงบุคคล</textarea></label><button class="button button-primary" id="run-ai" type="button">สร้างโครงร่าง</button><div id="ai-result" class="draft-note" style="margin-top:18px">ผลลัพธ์จะปรากฏตรงนี้</div>`;
-  openModal();
-  $('#run-ai').addEventListener('click', () => { $('#ai-result').innerHTML = '<strong>โครงร่างแนะนำ</strong><br />บทนำ: ชวนมองพื้นที่ริมน้ำในฐานะโครงสร้างของเมือง<br />ข้อมูลหลัก: พิกัด · เวลาเข้าถึง · สิ่งที่ควรสังเกต<br />บริบท: ความสัมพันธ์ระหว่างสายน้ำกับเมืองในอดีต<br />ตรวจสอบก่อนเผยแพร่: แหล่งอ้างอิง · ลิขสิทธิ์ภาพ · ข้อมูลส่วนบุคคล'; });
-}
-
 function openModal() { $('#modal-backdrop').hidden = false; document.body.style.overflow = 'hidden'; $('#modal-close').focus(); }
 function closeModal() { $('#modal-backdrop').hidden = true; document.body.style.overflow = ''; }
 
@@ -141,8 +106,6 @@ $('#search-input').addEventListener('input', (event) => applySearch(event.curren
 $('#search-input').addEventListener('search', (event) => applySearch(event.currentTarget.value));
 document.querySelectorAll('[data-query]').forEach((button) => button.addEventListener('click', () => applySearch(button.dataset.query, true)));
 $('#sort-button').addEventListener('click', () => { sortNewestFirst = !sortNewestFirst; $('#sort-button').innerHTML = sortNewestFirst ? 'เรียง: ล่าสุด <span aria-hidden="true">↕</span>' : 'เรียง: แนะนำก่อน <span aria-hidden="true">↕</span>'; renderCatalog(); });
-$('#open-draft').addEventListener('click', openDraftModal);
-$('#open-ai').addEventListener('click', openAiModal);
 $('#modal-close').addEventListener('click', closeModal);
 $('#modal-backdrop').addEventListener('click', (event) => { if (event.target === $('#modal-backdrop')) closeModal(); });
 document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !$('#modal-backdrop').hidden) closeModal(); });
