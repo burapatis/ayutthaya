@@ -76,6 +76,26 @@ h3 { margin-bottom:12px; font-size:26px; line-height:1.2; }
 .editorial-panel { display:grid; grid-template-columns:.9fr 1.1fr; gap:40px; margin-top:22px; padding:30px; border:1px solid #d8dfd8; border-radius:20px; background:#e6eee7; }.editorial-panel h2 { margin-bottom:0; font-size:30px; }.editorial-checklist { display:grid; gap:12px; margin:0; padding:0; list-style:none; color:#536a68; font-size:13px; }.editorial-checklist li { position:relative; padding-left:27px; }.editorial-checklist li::before { content:'✓'; position:absolute; left:0; color:#3f7565; font-weight:700; }
 @media (max-width:800px){ .creator-header-inner { min-height:70px; padding-block:12px; }.creator-header-actions { gap:10px; }.creator-badge { display:none; }.creator-main { padding-top:46px; }.creator-hero,.workspace-grid,.editorial-panel { grid-template-columns:1fr; }.creator-hero { gap:25px; }.workspace-panel { padding:22px; }.editorial-panel { gap:20px; } }
 @media (max-width:520px){ .creator-header-inner { align-items:start; }.creator-header-actions { align-items:end; flex-direction:column; gap:0; }.back-public { font-size:11px; }.creator-hero h1 { font-size:46px; }.creator-lede { font-size:16px; }.creator-stats { display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:18px 0; }.creator-stats div,.creator-stats div:first-child { padding:0; border:0; }.creator-stats div:last-child { grid-column:1/-1; }.form-two-columns { grid-template-columns:1fr; gap:0; }.creator-main { padding-bottom:60px; } }
+
+/* Simple creator workflow: keep actions obvious and drafts local. */
+.field-note { display:block; margin-top:6px; color:#8a8175; font-size:11px; line-height:1.5; }
+.ai-actions,.backup-actions { display:flex; flex-wrap:wrap; align-items:center; gap:9px; }
+.backup-panel { display:grid; grid-template-columns:1.1fr .9fr; align-items:center; gap:34px; margin-top:22px; padding:28px 30px; border:1px solid #dfc7ae; border-radius:20px; background:#fbf3e6; }
+.backup-panel h2 { margin-bottom:8px; font-size:30px; }
+.backup-panel p { margin:0; color:#6c6257; font-size:13px; }
+.backup-actions { justify-content:flex-end; }
+.file-button { cursor:pointer; }
+.draft-item-main { min-width:0; }
+.draft-actions { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:7px; }
+.draft-actions button { border:0; padding:5px 7px; border-radius:7px; background:transparent; font:600 11px 'IBM Plex Sans Thai',Tahoma,sans-serif; cursor:pointer; }
+.draft-edit { color:#356a67; background:#e4f0ea !important; }
+.draft-publish { color:#a05e3e; background:#f8e7d5 !important; }
+.draft-delete { color:#a45141; }
+.status-ready { color:#8a5a2d; background:#f6e6bd; }
+.status-archived { color:#687277; background:#e7e9eb; }
+.draft-item { align-items:center; }
+@media (max-width:800px){ .backup-panel { grid-template-columns:1fr; gap:20px; }.backup-actions { justify-content:flex-start; } }
+@media (max-width:520px){ .backup-panel { padding:22px; }.backup-panel h2 { font-size:26px; }.draft-item { align-items:flex-start; flex-direction:column; }.draft-actions { justify-content:flex-start; } }
 .card-image { position:absolute; inset:0; z-index:0; width:100%; height:100%; object-fit:cover; transition:transform .35s ease,filter .35s ease; }
 .feature-card:hover .card-image,.catalog-card:hover .card-image { transform:scale(1.04); filter:saturate(1.05); }
 .feature-card .card-art,.catalog-card .card-art { overflow:hidden; }
