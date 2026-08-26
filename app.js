@@ -6,8 +6,15 @@ const fallbackContent = [
 
 let records = [];
 let activeFilter = 'ทั้งหมด';
+let activeLens = 'all';
 let currentQuery = '';
 let sortNewestFirst = false;
+
+const lensTypes = {
+  past: new Set(['มรดกโลก', 'สถานที่', 'วัตถุและศาสนสถาน', 'ศาสนสถาน', 'วัตถุ']),
+  today: new Set(['เรื่องเล่า', 'อาหาร', 'เส้นทาง', 'กิจกรรม', 'ฐานข้อมูล', 'เครื่องมือ'])
+};
+const lensLabels = { past: 'อดีต', today: 'วันนี้' };
 
 const $ = (selector) => document.querySelector(selector);
 const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' }[char]));
@@ -25,6 +32,7 @@ async function loadContent() {
   renderFeatured();
   renderFilters();
   renderCatalog();
+  bindLensEvents();
 }
 
 function cardMarkup(item, featured = false) {
@@ -42,24 +50,31 @@ function renderFeatured() {
 
 function renderFilters() {
   const categories = ['ทั้งหมด', ...new Set(records.map((item) => item.type))];
-  $('#filter-row').innerHTML = categories.map((category) => `<button type="button" class="filter-chip ${category === activeFilter ? 'active' : ''}" data-filter="${escapeHtml(category)}">${escapeHtml(category)}</button>`).join('');
-  document.querySelectorAll('[data-filter]').forEach((button) => button.addEventListener('click', () => { activeFilter = button.dataset.filter; renderFilters(); renderCatalog(); }));
+  $('#filter-row').innerHTML = categories.map((category) => `<button type="button" class="filter-chip ${activeLens === 'all' && category === activeFilter ? 'active' : ''}" data-filter="${escapeHtml(category)}">${escapeHtml(category)}</button>`).join('');
+  document.querySelectorAll('[data-filter]').forEach((button) => {
+    if (button.dataset.filterBound === 'true') return;
+    button.addEventListener('click', () => { activeLens = 'all'; activeFilter = button.dataset.filter; renderFilters(); renderCatalog(); });
+    button.dataset.filterBound = 'true';
+  });
 }
 
 function renderCatalog() {
-  let visible = records.filter((item) => activeFilter === 'ทั้งหมด' || item.type === activeFilter);
+  const lensRecords = activeLens === 'all' ? records : records.filter((item) => lensTypes[activeLens]?.has(item.type));
+  let visible = lensRecords.filter((item) => activeFilter === 'ทั้งหมด' || item.type === activeFilter);
   const query = normalizeSearch(currentQuery);
   if (query) {
     visible = visible.filter((item) => normalizeSearch([item.id, item.title, item.type, item.category, item.summary, item.detail, item.location, item.sourceLabel, item.sourceNote].join(' ')).includes(query));
   }
   if (sortNewestFirst) visible = [...visible].reverse();
-  $('#result-count').textContent = query ? `พบ ${visible.length} รายการจาก “${currentQuery.trim()}”` : `พบ ${visible.length} รายการ`;
+  const lensLabel = activeLens === 'all' ? '' : ` · มุมมอง${lensLabels[activeLens]}`;
+  $('#result-count').textContent = query ? `พบ ${visible.length} รายการจาก “${currentQuery.trim()}”${lensLabel}` : `พบ ${visible.length} รายการ${lensLabel}`;
   $('#catalog').innerHTML = visible.map((item) => cardMarkup(item)).join('');
   $('#empty-state').hidden = visible.length > 0;
   bindCardEvents();
 }
 
 function applySearch(value, scrollToResults = false) {
+  activeLens = 'all';
   currentQuery = String(value || '').trim();
   const input = $('#search-input');
   if (input && input.value !== currentQuery) input.value = currentQuery;
@@ -88,6 +103,24 @@ function bindCardEvents() {
     if (element.dataset.detailBound === 'true') return;
     element.addEventListener('click', () => openDetail(element.dataset.openId));
     element.dataset.detailBound = 'true';
+  });
+}
+
+function bindLensEvents() {
+  document.querySelectorAll('[data-lens]').forEach((element) => {
+    if (element.dataset.lensBound === 'true') return;
+    element.addEventListener('click', (event) => {
+      event.preventDefault();
+      activeLens = element.dataset.lens;
+      activeFilter = 'ทั้งหมด';
+      currentQuery = '';
+      const input = $('#search-input');
+      if (input) input.value = '';
+      renderFilters();
+      renderCatalog();
+      document.querySelector('#places').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    element.dataset.lensBound = 'true';
   });
 }
 
