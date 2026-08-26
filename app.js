@@ -11,7 +11,7 @@ let currentQuery = '';
 let sortNewestFirst = false;
 
 const lensTypes = {
-  past: new Set(['มรดกโลก', 'สถานที่', 'วัตถุและศาสนสถาน', 'ศาสนสถาน', 'วัตถุ']),
+  past: new Set(['มรดกโลก', 'สถานที่', 'ศาสนสถาน', 'วัตถุ']),
   today: new Set(['เรื่องเล่า', 'อาหาร', 'เส้นทาง', 'กิจกรรม', 'ฐานข้อมูล', 'เครื่องมือ'])
 };
 const lensLabels = { past: 'อดีต', today: 'วันนี้' };
