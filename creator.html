@@ -6,7 +6,7 @@
     <meta name="description" content="พื้นที่ทำงานสำหรับผู้จัดทำโครงการอยุธยาของเรา" />
     <meta name="theme-color" content="#17383b" />
     <title>พื้นที่ผู้จัดทำ | อยุธยาของเรา</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=creator-simple-20260826" />
   </head>
   <body class="creator-page">
     <header class="creator-header">
@@ -30,11 +30,11 @@
         <div>
           <p class="eyebrow">CONTENT WORKSPACE · BOORAPATIS PLOYSUWAN</p>
           <h1 id="creator-title">พื้นที่ทำงาน<br /><em>สำหรับดูแลคลังข้อมูล</em></h1>
-          <p class="creator-lede">เพิ่มร่างข้อมูล ตรวจสอบแหล่งอ้างอิง และใช้ AI ช่วยวางโครงสร้างก่อนเผยแพร่สู่เว็บไซต์สาธารณะ</p>
+          <p class="creator-lede">จัดการข้อมูลด้วยแบบฟอร์มง่าย ๆ บันทึกร่างไว้ในอุปกรณ์ สำรองข้อมูล และเตรียมรายการที่พร้อมเผยแพร่ โดยไม่ต้องแก้โค้ดหรือไฟล์ JSON</p>
         </div>
         <aside class="creator-notice" aria-label="คำอธิบายพื้นที่ผู้จัดทำ">
           <strong>พื้นที่นี้แยกจากเว็บไซต์สาธารณะ</strong>
-          <p>ข้อมูลที่บันทึกที่นี่จะยังไม่แสดงต่อผู้เข้าชม และต้นแบบนี้เก็บร่างไว้ในอุปกรณ์ของคุณเท่านั้น</p>
+          <p>ข้อมูลร่างที่บันทึกที่นี่จะยังไม่แสดงต่อผู้เข้าชม และเก็บไว้ในอุปกรณ์ของคุณเท่านั้นจนกว่าจะเลือกเตรียมเผยแพร่</p>
           <p class="creator-notice-small">ก่อนเผยแพร่จริง ต้องตรวจสอบแหล่งอ้างอิง ลิขสิทธิ์ภาพ และข้อมูลส่วนบุคคลทุกครั้ง</p>
         </aside>
       </section>
@@ -42,6 +42,7 @@
       <section class="creator-stats" aria-label="สรุปสถานะคลังข้อมูล">
         <div><strong id="published-count">00</strong><span>รายการที่เผยแพร่</span></div>
         <div><strong id="draft-count">00</strong><span>ร่างในอุปกรณ์นี้</span></div>
+        <div><strong id="ready-count">00</strong><span>รายการพร้อมเผยแพร่</span></div>
         <div><strong>01</strong><span>ผู้ดูแลโครงการ</span></div>
       </section>
 
@@ -50,28 +51,31 @@
           <div class="workspace-heading">
             <div>
               <p class="eyebrow">1 · CREATE DRAFT</p>
-              <h2 id="workspace-title">สร้างร่างข้อมูล</h2>
+                <h2 id="workspace-title">เพิ่มหรือแก้ไขข้อมูล</h2>
             </div>
             <span class="status-pill status-draft">Draft</span>
           </div>
-          <p class="workspace-intro">เริ่มจากข้อมูลที่มีแหล่งที่มา แล้วค่อยเติมรายละเอียดให้ครบก่อนเปลี่ยนสถานะ</p>
+          <p class="workspace-intro" id="form-mode-help">กรอกข้อมูลที่มีแหล่งที่มา แล้วบันทึกเป็นร่าง ข้อมูลจะยังไม่ขึ้นเว็บไซต์สาธารณะ</p>
           <form id="draft-form" class="creator-form">
             <label>ชื่อเรื่อง<input name="title" required placeholder="เช่น เส้นทางริมน้ำรอบเกาะเมือง" /></label>
             <div class="form-two-columns">
-              <label>ประเภท<select name="type"><option>เรื่องเล่า</option><option>สถานที่</option><option>เส้นทาง</option><option>อาหาร</option><option>กิจกรรม</option><option>ข้อมูลเมือง</option></select></label>
-              <label>สถานะ<select name="status"><option>Draft</option><option>Review</option><option>Needs Update</option></select></label>
+              <label>ประเภท<select name="type"><option>เรื่องเล่า</option><option>สถานที่</option><option>วัตถุ</option><option>ศาสนสถาน</option><option>เส้นทาง</option><option>อาหาร</option><option>กิจกรรม</option><option>ฐานข้อมูล</option><option>เครื่องมือ</option><option>มรดกโลก</option></select></label>
+              <label>สถานะ<select name="status"><option>Draft</option><option>Review</option><option>Needs Update</option><option>พร้อมเผยแพร่</option><option>Archived</option></select></label>
             </div>
             <label>หมวดหมู่<input name="category" value="ร่างข้อมูล" placeholder="เช่น เมืองและสายน้ำ" /></label>
             <label>คำอธิบายสั้น<textarea name="summary" rows="3" required placeholder="อธิบายว่าเรื่องนี้สำคัญกับผู้อ่านอย่างไร โดยไม่ใส่ข้อมูลระบุตัวบุคคล"></textarea></label>
             <label>รายละเอียดหรือประเด็นที่ต้องค้นต่อ<textarea name="detail" rows="5" placeholder="บันทึกข้อมูลตั้งต้น คำถาม และสิ่งที่ต้องตรวจสอบ"></textarea></label>
             <label>พื้นที่หรือบริบท<input name="location" placeholder="เช่น เกาะเมือง / ริมแม่น้ำเจ้าพระยา" /></label>
+            <label>ภาพประกอบหรือชื่อไฟล์ภาพ<input name="image" placeholder="เช่น assets/illustrations/example.jpg" /><small class="field-note">ระบุชื่อไฟล์หรือ URL ภาพที่ต้องการใช้ เมื่อเผยแพร่จริงสามารถให้ผู้จัดทำช่วยจัดวางไฟล์ได้</small></label>
+            <label>คำบรรยายภาพ (Alt Text)<input name="altText" placeholder="อธิบายภาพสั้น ๆ สำหรับผู้ใช้โปรแกรมอ่านหน้าจอ" /></label>
             <div class="form-two-columns">
               <label>ชื่อแหล่งอ้างอิง<input name="sourceLabel" placeholder="เช่น กรมศิลปากร" /></label>
               <label>ลิงก์แหล่งอ้างอิง<input name="sourceUrl" type="url" placeholder="https://..." /></label>
             </div>
+            <label>หมายเหตุการตรวจสอบ<textarea name="sourceNote" rows="3" placeholder="ระบุสิ่งที่ตรวจสอบแล้วและสิ่งที่ยังต้องตรวจสอบ"></textarea></label>
             <label>วันที่ตรวจสอบล่าสุด<input name="updated" placeholder="เช่น 25 สิงหาคม 2569" /></label>
             <div class="creator-privacy-note"><strong>ตรวจสอบความเป็นส่วนตัว</strong><br />อย่าใส่ชื่อบุคคล เบอร์โทรศัพท์ อีเมลส่วนตัว ใบหน้า หรือข้อมูลที่ทำให้ระบุตัวบุคคลได้</div>
-            <div class="form-actions"><button class="button button-primary" type="submit">บันทึกร่างในอุปกรณ์นี้</button><button class="button button-outline" id="reset-draft" type="button">ล้างฟอร์ม</button></div>
+            <div class="form-actions"><button class="button button-primary" type="submit" id="save-draft">บันทึกข้อมูลในอุปกรณ์นี้</button><button class="button button-outline" id="reset-draft" type="button">ล้างฟอร์ม</button><span id="save-message" class="save-message" role="status" hidden></span></div>
           </form>
         </div>
 
@@ -84,10 +88,10 @@
               </div>
               <span class="status-pill status-demo">DEMO</span>
             </div>
-            <p class="workspace-intro">ผู้ช่วยจะเสนอเฉพาะโครงร่าง ข้อมูลยังไม่ถูกส่งออกจากอุปกรณ์และไม่เผยแพร่อัตโนมัติ</p>
+            <p class="workspace-intro">ผู้ช่วยในหน้านี้เป็นโหมดไม่ใช้ API: สร้างโครงร่างในเครื่อง และคัดลอกคำสั่งไปใช้กับ ChatGPT ได้โดยไม่เปิดเผย API Key</p>
             <label class="sr-only" for="ai-prompt">คำสั่งสำหรับผู้ช่วย AI</label>
             <textarea id="ai-prompt" class="ai-prompt" rows="4">ช่วยวางโครงร่างเรื่องเกี่ยวกับพื้นที่ริมน้ำ โดยเน้นสถานที่ วัตถุ การเดินทาง และแหล่งอ้างอิง ไม่กล่าวถึงบุคคล</textarea>
-            <button class="button button-primary" id="run-ai" type="button">สร้างโครงร่างตัวอย่าง</button>
+            <div class="ai-actions"><button class="button button-primary" id="run-ai" type="button">สร้างโครงร่างตัวอย่าง</button><button class="button button-outline" id="copy-ai-prompt" type="button">คัดลอกคำสั่งให้ AI</button></div>
             <div id="ai-result" class="ai-result" aria-live="polite">ผลลัพธ์จะปรากฏตรงนี้</div>
           </section>
 
@@ -101,6 +105,20 @@
             </div>
             <div id="draft-list" class="draft-library" aria-live="polite"></div>
           </section>
+        </div>
+      </section>
+
+      <section class="backup-panel" aria-labelledby="backup-title">
+        <div>
+          <p class="eyebrow">4 · BACKUP &amp; PUBLISH</p>
+          <h2 id="backup-title">สำรองข้อมูลและเตรียมเผยแพร่</h2>
+          <p>ข้อมูลร่างอยู่ในอุปกรณ์นี้เท่านั้น ควรดาวน์โหลดไฟล์สำรองเป็นระยะ รายการที่กด “พร้อมเผยแพร่” จะถูกส่งออกเป็นไฟล์ให้ผู้จัดทำนำไปตรวจสอบและอัปเดตเว็บไซต์สาธารณะ</p>
+        </div>
+        <div class="backup-actions">
+          <button class="button button-outline" id="export-backup" type="button">ดาวน์โหลดไฟล์สำรองทั้งหมด</button>
+          <button class="button button-primary" id="export-publish" type="button">ดาวน์โหลดรายการพร้อมเผยแพร่</button>
+          <label class="button button-outline file-button" for="import-backup">นำไฟล์สำรองกลับมา<input id="import-backup" type="file" accept="application/json,.json" hidden /></label>
+          <span id="backup-message" class="save-message" role="status" hidden></span>
         </div>
       </section>
 
@@ -127,6 +145,6 @@
       </div>
     </footer>
 
-    <script src="creator.js?v=workspace-20260825"></script>
+    <script src="creator.js?v=creator-simple-20260826"></script>
   </body>
 </html>
