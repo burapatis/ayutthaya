@@ -5,6 +5,7 @@ const root = resolve(".");
 const output = resolve(root, "dist/client");
 
 await mkdir(resolve(output, "data"), { recursive: true });
+await mkdir(resolve(output, "assets"), { recursive: true });
 
 for (const file of ["index.html", "creator.html", "styles.css", "app.js", "creator.js"]) {
   await cp(resolve(root, file), resolve(output, file));
@@ -13,6 +14,12 @@ for (const file of ["index.html", "creator.html", "styles.css", "app.js", "creat
 await cp(
   resolve(root, "data/content.json"),
   resolve(output, "data/content.json"),
+);
+
+await cp(
+  resolve(root, "assets/fonts"),
+  resolve(output, "assets/fonts"),
+  { recursive: true },
 );
 
 console.log("Prepared Cloudflare static assets in dist/client");
