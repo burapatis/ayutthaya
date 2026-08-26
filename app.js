@@ -22,7 +22,7 @@ const normalizeSearch = (value = '') => String(value).normalize('NFC').toLocaleL
 
 async function loadContent() {
   try {
-    const response = await fetch('data/content.json');
+    const response = await fetch('data/content.json?v=catalog-types-20260826');
     if (!response.ok) throw new Error('Content unavailable');
     records = await response.json();
   } catch (error) {
