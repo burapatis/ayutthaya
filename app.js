@@ -24,7 +24,7 @@ async function loadContent() {
   try {
     const response = await fetch('data/content.json?v=catalog-types-20260826');
     if (!response.ok) throw new Error('Content unavailable');
-    records = await response.json();
+    records = (await response.json()).filter((item) => item.visibility !== 'private' && !item.isDraft);
   } catch (error) {
     records = fallbackContent;
   }
