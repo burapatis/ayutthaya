@@ -17,8 +17,8 @@ await cp(
 );
 
 await cp(
-  resolve(root, "assets/fonts"),
-  resolve(output, "assets/fonts"),
+  resolve(root, "assets"),
+  resolve(output, "assets"),
   { recursive: true },
 );
 
