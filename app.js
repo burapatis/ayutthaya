@@ -9,6 +9,7 @@ let activeFilter = 'ทั้งหมด';
 let activeLens = 'all';
 let currentQuery = '';
 let sortNewestFirst = false;
+const hiddenPublicStatuses = new Set(['Draft', 'Review', 'Needs Update', 'พร้อมเผยแพร่', 'Archived']);
 
 const lensTypes = {
   past: new Set(['มรดกโลก', 'สถานที่', 'ศาสนสถาน', 'วัตถุ']),
@@ -24,7 +25,7 @@ async function loadContent() {
   try {
     const response = await fetch('data/content.json?v=catalog-types-20260826');
     if (!response.ok) throw new Error('Content unavailable');
-    records = (await response.json()).filter((item) => item.visibility !== 'private' && !item.isDraft);
+    records = (await response.json()).filter((item) => item.visibility !== 'private' && !item.isDraft && !hiddenPublicStatuses.has(item.status));
   } catch (error) {
     records = fallbackContent;
   }
